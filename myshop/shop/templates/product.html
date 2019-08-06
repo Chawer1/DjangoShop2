@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="border:1px solid black; display:inline-block; width: 700px;">
+    <img src="{{  product.image.url  }}" class="stuf">
+    <h3 class="text-center">{{ product.name }}</h3>
+    <p class="text"> {% lorem %} </p>
+    <hr>
+    <p><strong>Цена: {{ product.price }} $</strong></p>
+    <a href="{% url 'add_to_cart' product_slug=product.slug %}"><button class="btn btn-danger button">Добавить в корзину</button> </a>
+</div>
+{% endblock %}

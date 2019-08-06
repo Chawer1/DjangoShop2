@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3 class="text-center">Корзина</h3>
+<table class="table">
+    <tr>
+        <td class="text-center"><strong>Товар</strong></td>
+        <td class="text-center"><strong>Количество</strong></td>
+        <td class="text-center"><strong>Цена</strong></td>
+<!--        <td class="text-center" rowspan="1000"><strong>Итого</strong></td>-->
+
+    </tr>
+    {% for item in cart.items.all %}
+    <tr>
+        <td class="text-center"><strong>{{ item.product.name }}</strong></td>
+        <td class="text-center">
+            <form action="" method="GET">
+                <input type="number" name="qty" class="cart-item-qty" data-id="{{ item.id }}" value="{{ item.qty }}" min="1" style="width: 40px;">
+            </form>
+        </td>
+        <td class="text-center"><strong>{{ item.item_total }} $</strong></td>
+<!--        <td class="text-center"><strong>{{ item.item_sum }}</strong></td>-->
+        <td class="text-center"><a href="{% url 'remove_from_cart' product_slug=item.product.slug %}"><button class="btn btn-default">Удалить из корзины</button></a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}

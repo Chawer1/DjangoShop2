@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Shop Homepage</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel='stylesheet' href='{% static "css/bootstrap.css" %}'>
+  <link rel='stylesheet' href='{% static "css/shop-homepage.css" %}'>
+  <!-- Custom styles for this template -->
+  <link href="css/shop-homepage.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="base">Homepage</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+<!--            <a class="nav-link" href="#">Home-->
+<!--              <span class="sr-only">(current)</span>-->
+<!--            </a>-->
+          </li>
+          <div class="nav navbar-nav">
+            <li class="dropdown">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Категории <span class="caret"></span></a>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  {% for category in categories %}
+                  <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+                  {% endfor %}
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="{% url 'cart' %}">Корзина <span class="badge badge-light">{{ cart.items.count }}</span></a></li>
+              </ul>
+            </li>
+          </div>
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" href="#">Services</a>-->
+<!--          </li>-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" href="#">Contact</a>-->
+<!--          </li>-->
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-lg-3">
+
+        <h1 class="my-4">Shop</h1>
+        {% block content %}
+        <div class="list-group">
+        </div>
+      </div>
+      <!-- /.col-lg- 3 -->
+
+      <div class="col-lg-9">
+
+        <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner" role="listbox">
+            {% for product in products %}
+              {% if forloop.first %}
+            <div class="carousel-item active">
+              <img class="slide-image" src="{{ product.image.url }}" alt="First slide" style="padding-left: 260px; height: 400px;">
+            </div>
+              {% else %}
+            <div class="carousel-item">
+              <img class="slide-image" src="{{ product.image.url }}" alt="Second slide" style="padding-left: 260px; height: 400px;">
+            </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" style="background: transparent;">
+            <span class="carousel-control-prev-icon" aria-hidden="true" style="color:black;"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next" style="background: transparent;">
+            <span class="carousel-control-next-icon" aria-hidden="true" style="color:black;"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+
+        <div class="row">
+          {% for product in products %}
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+              <img src="{{ product.image.url }}" alt="" style="width:100%; height: 250px;">
+              <div class="card-body">
+                <h4 class="card-title">
+                  <strong><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></strong>
+                </h4>
+                <h5>{{product.price}} $</h5>
+                <p class="card-text">{{product.description}}</p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          {% endblock content %}
+          <br>
+
+        </div>
+        <!-- /.row -->
+
+      </div>
+      <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Shop</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src='{% static "js/jquery.js" %}'></script>
+  <script src='{% static "js/bootstrap.js" %}'></script>
+
+<style type="text/css">
+
+
+
+  </style>
+</body>
+</html>
+
